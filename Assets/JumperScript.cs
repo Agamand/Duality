@@ -6,10 +6,11 @@ public class JumperScript : MonoBehaviour {
 	public float jumpCooldown = 1.0f;
 	private float jumpTimer = -1.0f;
 	private bool _isOnGround = true;
+    private ArrayList collider_list;
 	
 	void Start () 
 	{
-	
+        collider_list = new ArrayList();
 	}
 	
 	public bool isOnGround()
@@ -32,13 +33,20 @@ public class JumperScript : MonoBehaviour {
 	
     void OnTriggerEnter ( Collider  _other )
     {
+        if (collider_list.Count == 0)
+            cooldown();
+
+        collider_list.Add(_other);
 		_isOnGround = true;
-		cooldown();
+		
     }
  
     void OnTriggerExit ( Collider  _other )
     {
-		_isOnGround = false;
+        collider_list.Remove(_other);
+        
+        if(collider_list.Count == 0)
+		    _isOnGround = false;
 
     }
 	void Update()

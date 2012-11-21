@@ -9,11 +9,22 @@ public class Controler : MonoBehaviour {
     public float jump = 1.0f;
 	public float mouseSpeed = 1.0f;
     public float maxSpeed = 30.0f;
+    public float baseforce = 1500;
 	private Vector3 lastpos;
     private float incl;
     private float rot_Y;
-	private const float baseforce = 1500;
+	
 	JumperScript jumpHandler = null;
+	WorldControler worldHandler = null;
+
+    /*Animation for changeGravity*/
+
+    private Quaternion oldquaternion;
+    private Quaternion newquaternion;
+    private float animationTimer = 0.0f;
+    private const float animationTime = 1.0f;
+    private bool isInAnimation = false;
+
 	
 	
 	void Start () {
@@ -21,6 +32,8 @@ public class Controler : MonoBehaviour {
         rot_Y = 0.0f;
         lastpos = Input.mousePosition;
 		jumpHandler = GetComponentInChildren<JumperScript>();
+		GameObject world = GameObject.Find("GameWorld");
+		worldHandler = world.GetComponent<WorldControler>();
 	}
 	
 	private float modulof(float a, float b)
@@ -56,6 +69,19 @@ public class Controler : MonoBehaviour {
 			return true;
 		else return jumpHandler.isOnGround();
 	}
+
+    public void changeGravity(Vector3 from, Vector3 to)
+    {
+        if(Vector3.Dot(from,to) >=1.0f)
+            return; //Same direction => no rotate;
+        animationTimer = animationTime;
+        from = transform.rotation * from;
+        to = transform.rotation * to;
+        oldquaternion = transform.rotation;
+        Debug.Log("rotate from " + from.ToString() + " to " + to.ToString());
+        newquaternion = Quaternion.FromToRotation(from,to);
+        isInAnimation = true;
+    }
 	
 	void Update () {
         Vector3 pos_diff = lastpos - Input.mousePosition;
@@ -82,6 +108,12 @@ public class Controler : MonoBehaviour {
         if (Input.GetKey(KeyCode.Q))
             vforce += Vector3.left;
 		
+		if(Input.GetKeyDown(KeyCode.A))
+		{
+			Debug.Log("a");
+			worldHandler.switchWorld();
+		}
+		
 		vforce = Vector3.Normalize(vforce) * force * baseforce * dTime;
 		
 		if(!isOnGround())
@@ -93,33 +125,29 @@ public class Controler : MonoBehaviour {
 			jumpHandler.cooldown();
 		}
 		
-		
-		/*Vector3 actual_velocity = rigidbody.velocity;
-		
-		
-		actual_velocity += vforce/rigidbody.mass*Time.deltaTime;
-		
-		if(actual_velocity.sqrMagnitude > 30.0f)
-		{
-			actual_velocity = Vector3.Normalize(actual_velocity)*30.0f;
-			actual_velocity -= rigidbody.velocity;
-			vforce = actual_velocity/Time.deltaTime*rigidbody.mass;
-		}*/
-		
-		
-		
-		
 		vforce = transform.rotation*vforce;
-		
-		
-		
 		rigidbody.AddForce(vforce);
-		
-		
-		
-		//Debug.Log("velocity : " + rigidbody.velocity.sqrMagnitude + ", (" + rigidbody.velocity.ToString() + ")");
-		
-		
-			
+        updateAnimation();
+		//Debug.Log("velocity : " + rigidbody.velocity.magnitude + ", (" + rigidbody.velocity.ToString() + ")");	
 	}
+
+
+    private void updateAnimation()
+    {
+        if (!isInAnimation)
+            return;
+
+        float dTime = Time.deltaTime;
+
+        if (animationTimer >= dTime)
+            animationTimer -= dTime;
+        else
+        {
+            animationTimer = 0.0f;
+        }
+
+        transform.rotation = oldquaternion*Quaternion.Lerp(Quaternion.identity, newquaternion, (animationTime - animationTimer) / animationTime);
+        if (animationTimer == 0.0f)
+            isInAnimation = false;
+    }
 }
