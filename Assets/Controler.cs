@@ -13,6 +13,7 @@ public class Controler : MonoBehaviour {
 	private Vector3 lastpos;
     private float incl;
     private float rot_Y;
+	private Vector3 respawnPosition;
 	
 	JumperScript jumpHandler = null;
 	WorldControler worldHandler = null;
@@ -34,6 +35,7 @@ public class Controler : MonoBehaviour {
 		jumpHandler = GetComponentInChildren<JumperScript>();
 		GameObject world = GameObject.Find("GameWorld");
 		worldHandler = world.GetComponent<WorldControler>();
+		respawnPosition = transform.position;
 	}
 	
 	private float modulof(float a, float b)
@@ -75,11 +77,9 @@ public class Controler : MonoBehaviour {
         if(Vector3.Dot(from,to) >=1.0f)
             return; //Same direction => no rotate;
         animationTimer = animationTime;
-        from = transform.rotation * from;
-        to = transform.rotation * to;
         oldquaternion = transform.rotation;
         Debug.Log("rotate from " + from.ToString() + " to " + to.ToString());
-        newquaternion = Quaternion.FromToRotation(from,to);
+        newquaternion = Quaternion.Inverse(oldquaternion)*Quaternion.FromToRotation(from,to);
         isInAnimation = true;
     }
 	
@@ -114,6 +114,11 @@ public class Controler : MonoBehaviour {
 			worldHandler.switchWorld();
 		}
 		
+     if (Input.GetKeyDown(KeyCode.R))
+        {
+            transform.position = respawnPosition;
+		}
+		
 		vforce = Vector3.Normalize(vforce) * force * baseforce * dTime;
 		
 		if(!isOnGround())
@@ -146,7 +151,7 @@ public class Controler : MonoBehaviour {
             animationTimer = 0.0f;
         }
 
-        transform.rotation = oldquaternion*Quaternion.Lerp(Quaternion.identity, newquaternion, (animationTime - animationTimer) / animationTime);
+        transform.rotation = Quaternion.Lerp(Quaternion.identity, newquaternion, (animationTime - animationTimer) / animationTime)*oldquaternion;
         if (animationTimer == 0.0f)
             isInAnimation = false;
     }
