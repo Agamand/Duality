@@ -164,7 +164,6 @@ pip-log.txt
 
 
 #Ignore Unity directory
-Library/*
 obj/*
 test_build_Data/*
 
