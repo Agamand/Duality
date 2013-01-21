@@ -4,6 +4,7 @@ using System.Collections;
 public class CheckpointScript : MonoBehaviour {
 
     ControlerScript cs = null;
+    public Quaternion playerRotation;
 
 	// Use this for initialization
 	void Start () {
@@ -17,6 +18,8 @@ public class CheckpointScript : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        cs.setRespawnPosition(transform.position);
+            cs.setRespawnPosition(transform.position);
+            cs.setRespawnRotation(playerRotation);
+            gameObject.SetActive(false);
     }
 }

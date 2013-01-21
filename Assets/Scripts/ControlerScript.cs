@@ -14,6 +14,7 @@ public class ControlerScript : MonoBehaviour {
     private float incl;
     private float rot_Y;
     private Vector3 respawnPosition;
+    private Quaternion respawnRotation;
     private Vector3 initialVelocity;
 
 	
@@ -39,6 +40,7 @@ public class ControlerScript : MonoBehaviour {
 		worldHandler = world.GetComponent<WorldControlerScript>();
         Screen.showCursor = false;
         respawnPosition = transform.position;
+        respawnRotation = transform.rotation;
         initialVelocity.Set(0, 0, 0);
 	}
 	
@@ -152,6 +154,7 @@ public class ControlerScript : MonoBehaviour {
     public void respawnPlayer()
     {
         transform.position = respawnPosition;
+        transform.rotation = respawnRotation;
         transform.rigidbody.velocity = initialVelocity;
 
     }
@@ -160,6 +163,12 @@ public class ControlerScript : MonoBehaviour {
     {
         respawnPosition = new_position;
     }
+
+    public void setRespawnRotation(Quaternion new_rotation)
+    {
+        respawnRotation = new_rotation;
+    }
+
 
     private void updateAnimation()
     {

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class MovingPlatformScript : MonoBehaviour {
+public class InvertedMovingPlatformScript : MonoBehaviour {
 
     public float minIncrement;
     public float maxIncrement;
@@ -15,8 +15,9 @@ public class MovingPlatformScript : MonoBehaviour {
     private Vector3[] translations;
     private Renderer[] bumpersRenderer;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         initialPosition = gameObject.transform.position;
         worldControler = GameObject.Find("GameWorld").GetComponent<WorldControlerScript>();
         currentWorldNumber = worldControler.getCurrentWorldNumber();
@@ -28,30 +29,36 @@ public class MovingPlatformScript : MonoBehaviour {
         bumpersRenderer = new Renderer[2];
         bumpersRenderer[0] = gameObject.transform.FindChild("bumperLeft").GetComponent<Renderer>();
         bumpersRenderer[1] = gameObject.transform.FindChild("bumperRight").GetComponent<Renderer>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         currentWorldNumber = worldControler.getCurrentWorldNumber();
-    
-        if (currentWorldNumber == 0) {
-            foreach (Renderer r in bumpersRenderer){
+
+        if (currentWorldNumber == 1)
+        {
+            foreach (Renderer r in bumpersRenderer)
+            {
                 r.material.color = Color.red;
             }
-            if (relPosition[(int)axis] < minIncrement) {
+            if (relPosition[(int)axis] < minIncrement)
+            {
                 gameObject.transform.Translate(translations[(int)axis]);
                 relPosition = gameObject.transform.position + initialPosition;
             }
         }
-        else {
+        else
+        {
             foreach (Renderer r in bumpersRenderer)
             {
                 r.material.color = Color.blue;
             }
-            if (relPosition[(int)axis] > maxIncrement * -1) {
-                gameObject.transform.Translate(-1*translations[(int)axis]);
+            if (relPosition[(int)axis] > maxIncrement * -1)
+            {
+                gameObject.transform.Translate(-1 * translations[(int)axis]);
                 relPosition = gameObject.transform.position + initialPosition;
             }
         }
-	}
+    }
 }

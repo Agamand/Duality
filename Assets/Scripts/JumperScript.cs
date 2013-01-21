@@ -9,10 +9,13 @@ public class JumperScript : MonoBehaviour {
     private ArrayList collider_list;
     private int jumpCharge = 1;
     private int maxJumpCharge = 2;
+    private WorldControlerScript worldControler;
+
 	
 	void Start () 
 	{
         collider_list = new ArrayList();
+        worldControler = GameObject.Find("GameWorld").GetComponent<WorldControlerScript>();
 	}
 	
 	public bool isOnGround()
@@ -61,11 +64,18 @@ public class JumperScript : MonoBehaviour {
     }
 	void Update()
 	{
+        if (worldControler.getCurrentWorldNumber() == 0 && jumpCharge > 1 && _isOnGround)
+            jumpCharge = 1;
+        else if (worldControler.getCurrentWorldNumber() == 0 && jumpCharge > 0 && !_isOnGround)
+            jumpCharge = 0;
+        else if (worldControler.getCurrentWorldNumber() == 1 && _isOnGround)
+            jumpCharge = 2;
+
 		float dTime = Time.deltaTime;
 		if(jumpTimer >= dTime)
 			jumpTimer -= dTime;
 		else jumpTimer = -1.0f;
 		
-		//Debug.Log("jumpTimer : " + jumpTimer + ", _isOnGround : "+ _isOnGround + ", canJump() : " + canJump()+ ", charge : " + jumpCharge);
+		Debug.Log("jumpTimer : " + jumpTimer + ", _isOnGround : "+ _isOnGround + ", canJump() : " + canJump()+ ", charge : " + jumpCharge);
 	}
 }
