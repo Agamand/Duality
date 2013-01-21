@@ -81,14 +81,17 @@ public class ControlerScript : MonoBehaviour {
 		else return jumpHandler.isOnGround();
 	}
 
-    public void changeGravity(Vector3 from, Vector3 to)
+    public void OnChangeGravity(Vector3 from, Vector3 to)
     {
-        if(Vector3.Dot(from,to) >=1.0f)
-            return; //Same direction => no rotate;
+        from = -from;
+        to = -to;
+        if (Vector3.Dot(from, to) >= 1.0f)
+            return;
         animationTimer = animationTime;
         oldquaternion = transform.rotation;
         Debug.Log("rotate from " + from.ToString() + " to " + to.ToString());
-        newquaternion = Quaternion.Inverse(oldquaternion)*Quaternion.FromToRotation(from,to);
+        newquaternion = Quaternion.FromToRotation(from, to);
+
         isInAnimation = true;
     }
 	
@@ -172,7 +175,7 @@ public class ControlerScript : MonoBehaviour {
             animationTimer = 0.0f;
         }
 
-        transform.rotation = Quaternion.Lerp(Quaternion.identity, newquaternion, (animationTime - animationTimer) / animationTime)*oldquaternion;
+        transform.rotation = Quaternion.Lerp(oldquaternion, newquaternion * oldquaternion, (animationTime - animationTimer) / animationTime);
         if (animationTimer == 0.0f)
             isInAnimation = false;
     }

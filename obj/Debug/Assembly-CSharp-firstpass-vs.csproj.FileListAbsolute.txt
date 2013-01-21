@@ -1,0 +1,10 @@
+C:\Users\Cyril\Documents\GitHub\Duality\Temp\bin\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\Cyril\Documents\GitHub\Duality\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
+C:\Users\Cyril\Documents\GitHub\Duality\Temp\bin\Debug\UnityEditor.dll
+C:\Users\Cyril\Documents\GitHub\Duality\Temp\bin\Debug\UnityEngine.dll
+C:\Users\Cyril\Documents\GitHub\Duality\Temp\bin\Debug\Mono.Cecil.dll
+C:\Users\Cyril\Documents\GitHub\Duality\Temp\bin\Debug\nunit.framework.dll
+C:\Users\Cyril\Documents\GitHub\Duality\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+C:\Users\Cyril\Documents\GitHub\Duality\obj\Debug\Assembly-CSharp-firstpass-vs.csprojResolveAssemblyReference.cache
+C:\Users\Cyril\Documents\GitHub\Duality\obj\Debug\Assembly-CSharp-firstpass.dll
+C:\Users\Cyril\Documents\GitHub\Duality\obj\Debug\Assembly-CSharp-firstpass.pdb

@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\JumperScript.cs" />
      <Compile Include="Assets\Scripts\LaserBeamColliderScript.cs" />
      <Compile Include="Assets\Scripts\LaserBeamScript.cs" />
+     <Compile Include="Assets\Scripts\LocalGravityScript.cs" />
      <Compile Include="Assets\Scripts\MovingPlatformScript.cs" />
      <Compile Include="Assets\Scripts\ReverseGravStandScript.cs" />
      <Compile Include="Assets\Scripts\WorldControlerScript.cs" />
