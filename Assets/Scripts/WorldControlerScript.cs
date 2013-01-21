@@ -28,18 +28,24 @@ public class WorldControlerScript : MonoBehaviour {
 		for(int i = 0; i < childCount; i++) 
 		{
             Transform go = world1.transform.GetChild(i);
-            Color c = go.renderer.material.color;
-            c.a = current_World == 0 ? 1.0f : 0.3f;
-            go.renderer.material.color = c;
+            if (go.GetComponent<Renderer>() != null)
+            {
+                Color c = go.renderer.material.color;
+                c.a = current_World == 0 ? 1.0f : 0.3f;
+                go.renderer.material.color = c;
+            }
 		}
 
         childCount = world2.transform.GetChildCount();
 		for(int i = 0; i < childCount; i++) 
-		{
+		{ 
             Transform go = world2.transform.GetChild(i);
-            Color c = go.renderer.material.color;
-            c.a = current_World != 0 ? 1.0f : 0.3f;
-            go.renderer.material.color = c;
+            if (go.GetComponent<Renderer>() != null)
+            {
+                Color c = go.renderer.material.color;
+                c.a = current_World != 0 ? 1.0f : 0.3f;
+                go.renderer.material.color = c;
+            }
 		}
 		
 	}
@@ -47,6 +53,11 @@ public class WorldControlerScript : MonoBehaviour {
     public GameObject getCurrentWorld()
     {
         return current_World == 0 ? world1 : world2;
+    }
+
+    public int getCurrentWorldNumber()
+    {
+        return current_World == 0 ? 0 : 1;
     }
 
 	void Start () 

@@ -14,6 +14,7 @@ public class ControlerScript : MonoBehaviour {
     private float incl;
     private float rot_Y;
     private Vector3 respawnPosition;
+    private Vector3 initialVelocity;
 
 	
 	JumperScript jumpHandler = null;
@@ -38,6 +39,7 @@ public class ControlerScript : MonoBehaviour {
 		worldHandler = world.GetComponent<WorldControlerScript>();
         Screen.showCursor = false;
         respawnPosition = transform.position;
+        initialVelocity.Set(0, 0, 0);
 	}
 	
 	private float modulof(float a, float b)
@@ -147,6 +149,8 @@ public class ControlerScript : MonoBehaviour {
     public void respawnPlayer()
     {
         transform.position = respawnPosition;
+        transform.rigidbody.velocity = initialVelocity;
+
     }
 
     public void setRespawnPosition(Vector3 new_position)

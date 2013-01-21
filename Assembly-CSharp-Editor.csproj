@@ -46,16 +46,20 @@
   <ItemGroup>
      <Compile Include="Assets\Editor\CustomMenuScript.cs" />
      <None Include="Assets\Materials\Shaders\Toony_Gooch_RimOutline.shader" />
+     <None Include="Assets\Materials\Shaders\DebugMesh.shader" />
      <None Include="Assets\Materials\Shaders\Toony_Gooch_RimAlpha.shader" />
      <None Include="Assets\Materials\Shaders\Toony_Gooch.shader" />
      <None Include="Assets\Materials\Shaders\Toony_Gooch_RimLight.shader" />
      <None Include="Assets\Materials\Shaders\Toony_Bumped.shader" />
+     <None Include="Assets\Standard Assets\Water (Basic)\Sources\Shaders\FX-Water Simple.shader" />
      <None Include="Assets\Materials\Shaders\NormalDebug.shader" />
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:\Program Files (x86)\Unity\Editor\Data\Managed\UnityEditor.Graphs.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{505D8EC6-6338-8E3B-E268-E932F8FFBEA2}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp.csproj">
       <Project>{32B1FD77-49CD-C40F-76BD-CE1A43C42460}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
   </ItemGroup>

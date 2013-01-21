@@ -51,14 +51,22 @@
      <Compile Include="Assets\Scripts\JumperScript.cs" />
      <Compile Include="Assets\Scripts\LaserBeamColliderScript.cs" />
      <Compile Include="Assets\Scripts\LaserBeamScript.cs" />
+     <Compile Include="Assets\Scripts\MovingHPlatformScript.cs" />
+     <Compile Include="Assets\Scripts\MovingPlatformScript.cs" />
      <Compile Include="Assets\Scripts\ReverseGravStandScript.cs" />
      <Compile Include="Assets\Scripts\WorldControlerScript.cs" />
      <None Include="Assets\Materials\Shaders\Toony_Gooch_RimOutline.shader" />
+     <None Include="Assets\Materials\Shaders\DebugMesh.shader" />
      <None Include="Assets\Materials\Shaders\Toony_Gooch_RimAlpha.shader" />
      <None Include="Assets\Materials\Shaders\Toony_Gooch.shader" />
      <None Include="Assets\Materials\Shaders\Toony_Gooch_RimLight.shader" />
      <None Include="Assets\Materials\Shaders\Toony_Bumped.shader" />
+     <None Include="Assets\Standard Assets\Water (Basic)\Sources\Shaders\FX-Water Simple.shader" />
      <None Include="Assets\Materials\Shaders\NormalDebug.shader" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{505D8EC6-6338-8E3B-E268-E932F8FFBEA2}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

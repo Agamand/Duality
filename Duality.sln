@@ -1,6 +1,8 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
+Project("{2450B722-6346-B9D9-162D-3253D6C698AA}") = "Duality", "Assembly-CSharp-firstpass.csproj", "{505D8EC6-6338-8E3B-E268-E932F8FFBEA2}"
+EndProject
 Project("{2450B722-6346-B9D9-162D-3253D6C698AA}") = "Duality", "Assembly-CSharp.csproj", "{32B1FD77-49CD-C40F-76BD-CE1A43C42460}"
 EndProject
 Project("{2450B722-6346-B9D9-162D-3253D6C698AA}") = "Duality", "Assembly-CSharp-Editor.csproj", "{91857099-8703-72CF-A3D3-A7492BAA4993}"
@@ -11,6 +13,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{505D8EC6-6338-8E3B-E268-E932F8FFBEA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{505D8EC6-6338-8E3B-E268-E932F8FFBEA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{505D8EC6-6338-8E3B-E268-E932F8FFBEA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{505D8EC6-6338-8E3B-E268-E932F8FFBEA2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{32B1FD77-49CD-C40F-76BD-CE1A43C42460}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{32B1FD77-49CD-C40F-76BD-CE1A43C42460}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32B1FD77-49CD-C40F-76BD-CE1A43C42460}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -23,7 +29,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-																																					GlobalSection(MonoDevelopProperties) = preSolution
+																																																	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1

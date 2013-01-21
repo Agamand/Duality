@@ -1,8 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ControlerScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Materials\Shaders\DebugMesh.shader">
     <Files>
       <File FileName="Assets\Scripts\ControlerScript.cs" Line="4" Column="29" />
+      <File FileName="Assets\Materials\Shaders\DebugMesh.shader" Line="19" Column="48" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -1,4 +1,7 @@
 fileFormatVersion: 2
 guid: fe8f667e230130240b4c06f96cc43e91
+labels:
+- World1
+- World2
 NativeFormatImporter:
   userData: 
