@@ -50,6 +50,10 @@
      <Compile Include="Assets\Scripts\CheckpointScript.cs" />
      <Compile Include="Assets\Scripts\ControlerScript.cs" />
      <Compile Include="Assets\Scripts\DeathPitScript.cs" />
+     <Compile Include="Assets\Scripts\HUD Scripts\HUDColorInvertScript.cs" />
+     <Compile Include="Assets\Scripts\HUD Scripts\HUDFramerateScript.cs" />
+     <Compile Include="Assets\Scripts\HUD Scripts\World2HUDLayerScript.cs" />
+     <Compile Include="Assets\Scripts\HUD Scripts\WorldIndicatorScript.cs" />
      <Compile Include="Assets\Scripts\InvertedMovingPlatformScript.cs" />
      <Compile Include="Assets\Scripts\JumperScript.cs" />
      <Compile Include="Assets\Scripts\LaserBeamColliderScript.cs" />

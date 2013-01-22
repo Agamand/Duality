@@ -39,7 +39,7 @@ public class MovingPlatformScript : MonoBehaviour {
                 r.material.color = Color.red;
             }
             if (relPosition[(int)axis] < minIncrement) {
-                gameObject.transform.Translate(translations[(int)axis]);
+                gameObject.transform.Translate(translations[(int)axis]*Time.deltaTime);
                 relPosition = gameObject.transform.position + initialPosition;
             }
         }
@@ -49,7 +49,7 @@ public class MovingPlatformScript : MonoBehaviour {
                 r.material.color = Color.blue;
             }
             if (relPosition[(int)axis] > maxIncrement * -1) {
-                gameObject.transform.Translate(-1*translations[(int)axis]);
+                gameObject.transform.Translate(-1*translations[(int)axis]*Time.deltaTime);
                 relPosition = gameObject.transform.position + initialPosition;
             }
         }
