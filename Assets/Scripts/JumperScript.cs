@@ -7,25 +7,36 @@ public class JumperScript : MonoBehaviour {
 	private float jumpTimer = -1.0f;
 	private bool _isOnGround = true;
     private ArrayList collider_list;
-    private int jumpCharge = 1;
-    private int maxJumpCharge = 2;
-    private WorldControlerScript worldControler;
+    private int jumpCharge = 0;
+    private int maxJumpCharge = 0;
 
 	
 	void Start () 
 	{
         collider_list = new ArrayList();
-        worldControler = GameObject.Find("GameWorld").GetComponent<WorldControlerScript>();
 	}
 	
 	public bool isOnGround()
 	{
 		return _isOnGround;
 	}
+
+    public void setCurrentCharge(int c)
+    {
+        jumpCharge = c;
+    }
+
+    public void setMaxCharge(int max)
+    {
+        maxJumpCharge = max;
+        if (!_isOnGround)
+            jumpCharge = 0;
+        else jumpCharge = max;
+    }
 	
 	public bool canJump()
 	{
-		if(jumpTimer < 0.0f && _isOnGround | jumpCharge > 0)
+        if (jumpTimer < 0.0f && (_isOnGround || jumpCharge > 0))
 			return true;
 		
 		return false;
@@ -33,7 +44,8 @@ public class JumperScript : MonoBehaviour {
 
     public void onJump()
     {
-        jumpCharge--;
+        if(!_isOnGround)
+            jumpCharge--;
         cooldown();
     }
 	
@@ -64,13 +76,6 @@ public class JumperScript : MonoBehaviour {
     }
 	void Update()
 	{
-        if (worldControler.getCurrentWorldNumber() == 0 && jumpCharge > 1 && _isOnGround)
-            jumpCharge = 1;
-        else if (worldControler.getCurrentWorldNumber() == 0 && jumpCharge > 0 && !_isOnGround)
-            jumpCharge = 0;
-        else if (worldControler.getCurrentWorldNumber() == 1 && _isOnGround)
-            jumpCharge = 2;
-
 		float dTime = Time.deltaTime;
 		if(jumpTimer >= dTime)
 			jumpTimer -= dTime;

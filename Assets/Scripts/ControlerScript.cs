@@ -132,6 +132,7 @@ public class ControlerScript : MonoBehaviour {
 		{
 			Debug.Log("a");
 			worldHandler.switchWorld();
+            jumpHandler.setMaxCharge(worldHandler.getCurrentWorldNumber()); 
 		}
 		
 		vforce = Vector3.Normalize(vforce) * force * baseforce * dTime;
@@ -143,6 +144,7 @@ public class ControlerScript : MonoBehaviour {
 		{
             vforce += Vector3.up * jump;
             jumpHandler.onJump();
+            Debug.Log("JUMPING");
 		}
 		
 		vforce = transform.rotation*vforce;
