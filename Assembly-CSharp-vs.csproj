@@ -45,7 +45,6 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Notes\ToDo.cs" />
-     <Compile Include="Assets\Scripts\AttachToMovingScript.cs" />
      <Compile Include="Assets\Scripts\AttachableObjectScript.cs" />
      <Compile Include="Assets\Scripts\CheckpointScript.cs" />
      <Compile Include="Assets\Scripts\ControlerScript.cs" />
@@ -54,12 +53,15 @@
      <Compile Include="Assets\Scripts\HUD Scripts\HUDFramerateScript.cs" />
      <Compile Include="Assets\Scripts\HUD Scripts\World2HUDLayerScript.cs" />
      <Compile Include="Assets\Scripts\HUD Scripts\WorldIndicatorScript.cs" />
-     <Compile Include="Assets\Scripts\InvertedMovingPlatformScript.cs" />
      <Compile Include="Assets\Scripts\JumperScript.cs" />
      <Compile Include="Assets\Scripts\LaserBeamColliderScript.cs" />
      <Compile Include="Assets\Scripts\LaserBeamScript.cs" />
      <Compile Include="Assets\Scripts\LocalGravityScript.cs" />
-     <Compile Include="Assets\Scripts\MovingPlatformScript.cs" />
+     <Compile Include="Assets\Scripts\Moving Platforms\AttachToMovingScript.cs" />
+     <Compile Include="Assets\Scripts\Moving Platforms\AutomatedMovingPlatform.cs" />
+     <Compile Include="Assets\Scripts\Moving Platforms\InvertedAutomatedMovingPlatformScript.cs" />
+     <Compile Include="Assets\Scripts\Moving Platforms\InvertedMovingPlatformScript.cs" />
+     <Compile Include="Assets\Scripts\Moving Platforms\MovingPlatformScript.cs" />
      <Compile Include="Assets\Scripts\ReverseGravStandScript.cs" />
      <Compile Include="Assets\Scripts\WorldControlerScript.cs" />
      <None Include="Assets\Materials\Shaders\Toony_Gooch_RimOutline.shader" />

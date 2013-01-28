@@ -40,6 +40,7 @@ public class MovingPlatformScript : MonoBehaviour {
             }
             if (relPosition[(int)axis] < minIncrement) {
                 gameObject.transform.Translate(translations[(int)axis]*Time.deltaTime);
+                Debug.Log("Translating go : " + gameObject.name);
                 relPosition = gameObject.transform.position + initialPosition;
             }
         }
