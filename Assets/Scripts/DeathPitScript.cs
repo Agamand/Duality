@@ -1,13 +1,23 @@
+/**
+ *  DeathPitScript
+ *      --> Script respawning the player when colliding with the object
+ *      
+ *      Members:
+ *          - private ControlerScript m_Controler : the world controler used to respawn the player
+ *  
+ *  Authors: Jean-Vincent Lamberti
+ **/
+
 using UnityEngine;
 using System.Collections;
 
 public class DeathPitScript : MonoBehaviour {
 
-    ControlerScript controler;
+    private ControlerScript m_Controler;
 
 	// Use this for initialization
 	void Start () {
-        controler = GameObject.Find("Player").GetComponent<ControlerScript>();
+        m_Controler = GameObject.Find("Player").GetComponent<ControlerScript>();
 	}
 	
 	// Update is called once per frame
@@ -15,8 +25,15 @@ public class DeathPitScript : MonoBehaviour {
 	
 	}
 
-    void OnTriggerEnter(Collider coll)
+    /**
+     *  OnTriggerEnter(Collider col)
+     *      --> respanws the player when colliding with the collider of the gameObject the script is attached to
+     *      
+     * Members: 
+     *  - Collider col: the collider of the gameObject the script is attached to
+     * */
+    void OnTriggerEnter(Collider col)
     {
-        controler.respawnPlayer();
+        m_Controler.RespawnPlayer();
     }
 }

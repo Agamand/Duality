@@ -1,14 +1,26 @@
+/**
+ *  CheckpointScript
+ *      --> Script used to define a checkpoint 
+ *          - sets the player respawn position to its center when entering its collision box
+ *         
+ *  Members: 
+ *      - private ControlerScript m_Cs : the ControlerScript attached to the player
+ *      - public Quaternion playerRotation : the rotation to give to the player when respawning     
+ * 
+ *  Authors: Jean-Vincent Lamberti
+ **/
+
 using UnityEngine;
 using System.Collections;
 
 public class CheckpointScript : MonoBehaviour {
 
-    ControlerScript cs = null;
+    private ControlerScript m_Cs = null;
     public Quaternion playerRotation;
 
 	// Use this for initialization
 	void Start () {
-        cs = GameObject.Find("Player").GetComponent<ControlerScript>();
+        m_Cs = GameObject.Find("Player").GetComponent<ControlerScript>();
 	}
 	
 	// Update is called once per frame
@@ -16,10 +28,17 @@ public class CheckpointScript : MonoBehaviour {
 	
 	}
 
+    /**
+     *  OnTriggerEnter(Collider col)
+     *      -> set the respawn postition and rotation when the player collide with the collider the script is attached to
+     *      
+     *  Arguments: 
+     *      - Collider col: the collider of the gameObject the script is attached to
+     **/
     void OnTriggerEnter(Collider col)
     {
-            cs.setRespawnPosition(transform.position);
-            cs.setRespawnRotation(playerRotation);
+            m_Cs.SetRespawnPosition(transform.position);
+            m_Cs.SetRespawnRotation(playerRotation);
             gameObject.SetActive(false);
     }
 }

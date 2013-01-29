@@ -3,15 +3,15 @@ using System.Collections;
 
 public class HUDFramerateScript : MonoBehaviour {
 
-    private TextMesh tm;
+    private TextMesh m_Tm;
 
 	// Use this for initialization
 	void Start () {
-        tm = gameObject.GetComponent<TextMesh>();
+        m_Tm = gameObject.GetComponent<TextMesh>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        tm.text = (Time.frameCount/Time.realtimeSinceStartup).ToString("f2")+" FPS";
+        m_Tm.text = (Time.frameCount/Time.realtimeSinceStartup).ToString("f2")+" FPS";
 	}
 }

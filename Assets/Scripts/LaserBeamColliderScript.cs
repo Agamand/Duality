@@ -1,14 +1,24 @@
+/**
+ * LaserBeamColliderScript
+ *  --> kills the player when touching a laserBeam
+ *  
+ * Members: 
+ * 	- private ControlerScript m_PlayerControler : the ControlerScript associated to the player
+ *  
+ * Authors: Jean-Vincent Lamberti
+ * */
+
 using UnityEngine;
 using System.Collections;
 
 public class LaserBeamColliderScript : MonoBehaviour {
 
 
-    ControlerScript playerControler;
+    private ControlerScript m_PlayerControler;
 
         // Use this for initialization
 	void Start () {
-        playerControler = GameObject.Find("Player").GetComponent<ControlerScript>();
+        m_PlayerControler = GameObject.Find("Player").GetComponent<ControlerScript>();
 	}
 	
 	// Update is called once per frame
@@ -16,8 +26,13 @@ public class LaserBeamColliderScript : MonoBehaviour {
 	    
 	}
 
+    /**
+     * OnTriggerEnter(Collider col)
+     *  --> called when the player collides with the beam
+     *      - respawns the player
+     * */
     void OnTriggerEnter(Collider col)
     {
-        playerControler.respawnPlayer();
+        m_PlayerControler.RespawnPlayer();
     }
 }

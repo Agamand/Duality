@@ -1,3 +1,13 @@
+/**
+ * WorldIndicatorScript
+ *  --> print on the HUD the current world
+ *  
+ * Members: 
+ *  - private WorldControlerScript m_Wc: the WorldControler of the scene "GameWorld" defining in which world is the player
+ *  - private TextMesh m_Tm: the TextMesh indicating which world the player is in
+ *  
+ * Authors: Jean-Vincent Lamberti
+ * */
 using UnityEngine;
 using System.Collections;
 
@@ -5,20 +15,20 @@ using System.Collections;
 public class WorldIndicatorScript : MonoBehaviour {
 
 
-    private WorldControlerScript wc;
-    private TextMesh tm;
+    private WorldControlerScript m_Wc;
+    private TextMesh m_Tm;
 
 	// Use this for initialization
 	void Start () {
-        wc = GameObject.Find("GameWorld").GetComponent<WorldControlerScript>();
-        tm = gameObject.GetComponent<TextMesh>();
+        m_Wc = GameObject.Find("GameWorld").GetComponent<WorldControlerScript>();
+        m_Tm = gameObject.GetComponent<TextMesh>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (wc.getCurrentWorldNumber() == 0)
-            tm.text = "World 1";
+        if (m_Wc.getCurrentWorldNumber() == 0)
+            m_Tm.text = "World 1";
         else
-            tm.text = "World 2";
+            m_Tm.text = "World 2";
 	}
 }

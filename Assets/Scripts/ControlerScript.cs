@@ -1,113 +1,166 @@
+/**
+ *  ControlerScript
+ *      --> The script used as a Character Controller which handles : 
+ *          - player movement (partial jump handling)
+ *          - input management
+ *          - partial world change
+ *          - camera
+ *  
+ *  Members: 
+ *      public float m_Speed : the speed of the player
+ *	    public float m_BackSpeed : the speed of the player while moving backwards
+ *      public float m_Jump : the amount of force to give to the jump
+ *	    public float m_MouseSpeed : the sensibility of the mouse
+ *      public float m_MaxSpeed : the max speed of the player
+ *      public float m_Baseforce : the base force factor to each speed and force
+ *	    private Vector3 m_Lastpos : the last position of the mouse
+ *      private float m_Incl : mouse gradient
+ *      private float m_Rot_Y : mouse rotation
+ *      private Vector3 m_RespawnPosition : the respawn position of the player
+ *      private Quaternion m_RespawnRotation : the respawn rotation of the player
+ *      private Vector3 m_InitialVelocity : the velocity of the player when respawning
+ *	    private JumperScript m_JumpHandler : the JumperScript attached to the "Jumper" GameObject composing the player prefab
+ *	    private WorldControlerScript m_WorldHandler : the WorldControlerScript attached to the scene "GameWorld" on which the player and the world he's in depends
+ *      private Quaternion m_Oldquaternion : 
+ *      private Quaternion m_Newquaternion : 
+ *      private float m_AnimationTimer :
+ *      private const float m_AnimationTime :
+ *      private bool m_IsInAnimation : 
+ *      
+ *  Authors: Cyril Basset
+ **/
+
 using UnityEngine;
 using System.Collections;
 
 public class ControlerScript : MonoBehaviour {
 	
 	
-    public float speed = 1.0f;
-	public float backSpeed = 0.5f;
-    public float jump = 1.0f;
-	public float mouseSpeed = 1.0f;
-    public float maxSpeed = 30.0f;
-    public float baseforce = 1500;
-	private Vector3 lastpos;
-    private float incl;
-    private float rot_Y;
-    private Vector3 respawnPosition;
-    private Quaternion respawnRotation;
-    private Vector3 initialVelocity;
+    public float m_Speed = 1.0f;
+	public float m_BackSpeed = 0.5f;
+    public float m_Jump = 1.0f;
+	public float m_MouseSpeed = 1.0f;
+    public float m_MaxSpeed = 30.0f;
+    public float m_Baseforce = 1500;
+	private Vector3 m_Lastpos;
+    private float m_Incl;
+    private float m_Rot_Y;
+    private Vector3 m_RespawnPosition;
+    private Quaternion m_RespawnRotation;
+    private Vector3 m_InitialVelocity;
 
 	
-	JumperScript jumpHandler = null;
-	WorldControlerScript worldHandler = null;
+	JumperScript m_JumpHandler = null;
+	WorldControlerScript m_WorldHandler = null;
 
     /*Animation for changeGravity*/
 
-    private Quaternion oldquaternion;
-    private Quaternion newquaternion;
-    private float animationTimer = 0.0f;
-    private const float animationTime = 1.0f;
-    private bool isInAnimation = false;
+    private Quaternion m_Oldquaternion;
+    private Quaternion m_Newquaternion;
+    private float m_AnimationTimer = 0.0f;
+    private const float m_AnimationTime = 1.0f;
+    private bool m_IsInAnimation = false;
 
 	
 	
 	void Start () {
-        incl = 0.0f;
-        rot_Y = 0.0f;
-        lastpos = Input.mousePosition;
-		jumpHandler = GetComponentInChildren<JumperScript>();
+        m_Incl = 0.0f;
+        m_Rot_Y = 0.0f;
+        m_Lastpos = Input.mousePosition;
+		m_JumpHandler = GetComponentInChildren<JumperScript>();
 		GameObject world = GameObject.Find("GameWorld");
-		worldHandler = world.GetComponent<WorldControlerScript>();
+		m_WorldHandler = world.GetComponent<WorldControlerScript>();
         Screen.showCursor = false;
-        respawnPosition = transform.position;
-        respawnRotation = transform.rotation;
-        initialVelocity.Set(0, 0, 0);
+        m_RespawnPosition = transform.position;
+        m_RespawnRotation = transform.rotation;
+        m_InitialVelocity.Set(0, 0, 0);
 	}
 	
-	private float modulof(float a, float b)
+    /**
+     * ???????
+     **/
+	private float Modulof(float a, float b)
 	{
 		return (a-b*Mathf.Floor(a/b));
 	}
 
+    /**
+     * ??????
+     * */
     void OnMouseDown()
     {
         // Lock the cursor
         Screen.lockCursor = true;
     }
 
-	private void updateMouse(Vector3 mdiff)
+    /**
+     * ????????
+     * */
+	private void UpdateMouse(Vector3 mdiff)
 	{
-		float inclInc = mdiff.y*mouseSpeed*Time.deltaTime;
-		rot_Y = -mdiff.x*mouseSpeed*Time.deltaTime;
-		rot_Y = modulof(rot_Y,360.0f);
-		
-		if(incl+inclInc > 89.0f)
+		float inclInc = mdiff.y*m_MouseSpeed*Time.deltaTime;
+		m_Rot_Y = -mdiff.x*m_MouseSpeed*Time.deltaTime;
+		m_Rot_Y = Modulof(m_Rot_Y,360.0f);
+
+        if (m_Incl + inclInc > 89.0f)
 		{
-			inclInc = 89.0f - incl;
+            inclInc = 89.0f - m_Incl;
 		}
-		else if(incl+inclInc < -89.0f)
+        else if (m_Incl + inclInc < -89.0f)
 		{
-			inclInc = -89.0f - incl;
+            inclInc = -89.0f - m_Incl;
 		}
-		
-		incl += inclInc;
+
+        m_Incl += inclInc;
 		
 		transform.FindChild("Camera").Rotate(Vector3.right,inclInc);
         transform.FindChild("Light").Rotate(Vector3.right, inclInc);		
 	}
 	
-	private bool isOnGround()
+    /**
+     * IsOnGround
+     *  --> returns whether or not the player is touching the ground
+     *  
+     * -> true : the player is touching the ground
+     * -> false : the player is not touching the ground
+     * 
+     * */
+	private bool IsOnGround()
 	{
-		if(!jumpHandler)
+		if(!m_JumpHandler)
 			return true;
-		else return jumpHandler.isOnGround();
+		else return m_JumpHandler.IsOnGround();
 	}
 
+
+    /**
+     * ???????????
+     * */
     public void OnChangeGravity(Vector3 from, Vector3 to)
     {
         from = -from;
         to = -to;
         if (Vector3.Dot(from, to) >= 1.0f)
             return;
-        animationTimer = animationTime;
-        oldquaternion = transform.rotation;
+        m_AnimationTimer = m_AnimationTime;
+        m_Oldquaternion = transform.rotation;
         Debug.Log("rotate from " + from.ToString() + " to " + to.ToString());
-        newquaternion = Quaternion.FromToRotation(from, to);
+        m_Newquaternion = Quaternion.FromToRotation(from, to);
 
-        isInAnimation = true;
+        m_IsInAnimation = true;
     }
 	
 	void Update () {
 
-        Vector3 pos_diff = lastpos - Input.mousePosition;
-		lastpos = Input.mousePosition;
+        Vector3 pos_diff = m_Lastpos - Input.mousePosition;
+		m_Lastpos = Input.mousePosition;
 	
-		updateMouse(pos_diff);
-		transform.Rotate(Vector3.up,rot_Y);
+		UpdateMouse(pos_diff);
+		transform.Rotate(Vector3.up,m_Rot_Y);
 		Vector3 vforce = new Vector3(0.0f,0.0f,0.0f);
 		float dTime = Time.deltaTime;
 		
-		float force = speed;
+		float force = m_Speed;
 		
         if (Input.GetKey(KeyCode.Z))
             vforce += Vector3.forward;
@@ -115,7 +168,7 @@ public class ControlerScript : MonoBehaviour {
         if (Input.GetKey(KeyCode.S))
 		{
             vforce += Vector3.back;
-			force = backSpeed;	
+			force = m_BackSpeed;	
 		}
         if (Input.GetKey(KeyCode.D))
             vforce += Vector3.right;
@@ -125,69 +178,90 @@ public class ControlerScript : MonoBehaviour {
 
         if (Input.GetKey(KeyCode.R))
         {
-            respawnPlayer();
+            RespawnPlayer();
         }
 		
 		if(Input.GetKeyDown(KeyCode.A))
 		{
 			Debug.Log("a");
-			worldHandler.switchWorld();
-            jumpHandler.setMaxCharge(worldHandler.getCurrentWorldNumber()); 
+			m_WorldHandler.switchWorld();
+            m_JumpHandler.SetMaxCharge(m_WorldHandler.getCurrentWorldNumber()); 
 		}
 		
-		vforce = Vector3.Normalize(vforce) * force * baseforce * dTime;
+		vforce = Vector3.Normalize(vforce) * force * m_Baseforce * dTime;
 		
-		if(!isOnGround())
+		if(!IsOnGround())
 			vforce = vforce*0.5f;
 		
-        if(Input.GetKeyDown(KeyCode.Space) && jumpHandler.canJump())
+        if(Input.GetKeyDown(KeyCode.Space) && m_JumpHandler.CanJump())
 		{
-            vforce += Vector3.up * jump;
-            jumpHandler.onJump();
+            vforce += Vector3.up * m_Jump;
+            m_JumpHandler.OnJump();
             Debug.Log("JUMPING");
 		}
 		
 		vforce = transform.rotation*vforce;
 		rigidbody.AddForce(vforce);
-        updateAnimation();
+        UpdateAnimation();
 		//Debug.Log("velocity : " + rigidbody.velocity.magnitude + ", (" + rigidbody.velocity.ToString() + ")");	
 	}
 
-    public void respawnPlayer()
+
+    /**
+     *  RespawnPlayer(): 
+     *      --> respawns the player at the position, rotation and velocity defined in the data members
+     * */
+    public void RespawnPlayer()
     {
-        transform.position = respawnPosition;
-        transform.rotation = respawnRotation;
-        transform.rigidbody.velocity = initialVelocity;
+        transform.position = m_RespawnPosition;
+        transform.rotation = m_RespawnRotation;
+        transform.rigidbody.velocity = m_InitialVelocity;
 
     }
 
-    public void setRespawnPosition(Vector3 new_position)
+    /**
+     *  SetRespawnPosition(Vector3 new_Position)
+     *      --> sets the respawn position of the player
+     *      
+     *  Arguments:
+     *      - Vector3 new_position : the position to set as the respawn position
+     * */
+    public void SetRespawnPosition(Vector3 newPosition)
     {
-        respawnPosition = new_position;
+        m_RespawnPosition = newPosition;
     }
 
-    public void setRespawnRotation(Quaternion new_rotation)
+    /**
+     *  SetRespawnRotation(Vector3 new_Position)
+     *      --> sets the respawn rotation of the player
+     *      
+     *  Arguments:
+     *      - Vector3 new_position : the position to set as the respawn rotation
+     * */
+    public void SetRespawnRotation(Quaternion newRotation)
     {
-        respawnRotation = new_rotation;
+        m_RespawnRotation = newRotation;
     }
 
-
-    private void updateAnimation()
+    /**
+     * ???????????
+     * */
+    private void UpdateAnimation()
     {
-        if (!isInAnimation)
+        if (!m_IsInAnimation)
             return;
 
         float dTime = Time.deltaTime;
 
-        if (animationTimer >= dTime)
-            animationTimer -= dTime;
+        if (m_AnimationTimer >= dTime)
+            m_AnimationTimer -= dTime;
         else
         {
-            animationTimer = 0.0f;
+            m_AnimationTimer = 0.0f;
         }
 
-        transform.rotation = Quaternion.Lerp(oldquaternion, newquaternion * oldquaternion, (animationTime - animationTimer) / animationTime);
-        if (animationTimer == 0.0f)
-            isInAnimation = false;
+        transform.rotation = Quaternion.Lerp(m_Oldquaternion, m_Newquaternion * m_Oldquaternion, (m_AnimationTime - m_AnimationTimer) / m_AnimationTime);
+        if (m_AnimationTimer == 0.0f)
+            m_IsInAnimation = false;
     }
 }

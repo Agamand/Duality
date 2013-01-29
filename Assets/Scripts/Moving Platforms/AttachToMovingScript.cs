@@ -1,3 +1,11 @@
+/** 
+* AttachToMovingPlatform
+*  --> attach every objects having a AttachableObjectScript which collides with the gameObject the script is attached to
+*  
+* Authors: Jean-Vincent Lamberti
+* */
+
+
 using UnityEngine;
 using System.Collections;
 
@@ -14,6 +22,13 @@ public class AttachToMovingScript : MonoBehaviour {
 	
 	}
 
+    /**
+     * OnTriggerEnter(Collider col)
+     *  --> called when a collider enter in collision with the platform collider
+     *  
+     * Arguments: 
+     *  - Collider col: the collider which enter in collision with the platform collider
+     * */
     void OnTriggerEnter(Collider col)
     {
 
@@ -27,6 +42,13 @@ public class AttachToMovingScript : MonoBehaviour {
         }
     }
 
+    /**
+     * OnTriggerExit(Collider col)
+     *  --> called when the collider is no longer touching the platform
+     *  
+     * Arguments: 
+     *  - Collider col: the collider which no longer touches the platform
+     * */
     void OnTriggerExit(Collider col)
     {
         if (col.gameObject.transform.parent.GetComponent<AttachableObjectScript>() != null)

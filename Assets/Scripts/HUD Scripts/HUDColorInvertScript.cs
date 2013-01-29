@@ -1,34 +1,48 @@
+/**
+ *  HUDColorInvertScript
+ *      --> Script Inverting the Color of the HUD depending on the world the player is in
+ *     
+ *      Members:
+ *          - private WorldControlerScript m_Wc : the WorldControler used to define the world the player is in
+ *          - private MeshRenderer m_Mr : the MeshRenderer of the gameObject on which you change the color
+ *          - public bool m_Inverted : a boolean defining if the color is inverted or not : 
+ *                     false -> white in world 1, black in world 2
+ *                     true -> black in world 1, white in wordl 2
+ *
+ *  Authors: Jean-Vincent Lamberti
+ **/
+
 using UnityEngine;
 using System.Collections;
 
 public class HUDColorInvertScript : MonoBehaviour {
 
-    private WorldControlerScript wc;
-    private MeshRenderer mr;
-    public bool inverted = false;
+    private WorldControlerScript m_Wc;
+    private MeshRenderer m_Mr;
+    public bool m_Inverted = false;
 
 	// Use this for initialization
 	void Start () {
-        wc = GameObject.Find("GameWorld").GetComponent<WorldControlerScript>();
-        mr = gameObject.GetComponent<MeshRenderer>();
+        m_Wc = GameObject.Find("GameWorld").GetComponent<WorldControlerScript>();
+        m_Mr = gameObject.GetComponent<MeshRenderer>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        if (!inverted)
+        if (!m_Inverted)
         {
-            if (wc.getCurrentWorldNumber() == 0)
-                mr.material.color = Color.white;
+            if (m_Wc.getCurrentWorldNumber() == 0)
+                m_Mr.material.color = Color.white;
             else
-                mr.material.color = Color.black;
+                m_Mr.material.color = Color.black;
         }
         else
         {
-            if (wc.getCurrentWorldNumber() == 1)
-                mr.material.color = Color.white;
+            if (m_Wc.getCurrentWorldNumber() == 1)
+                m_Mr.material.color = Color.white;
             else
-                mr.material.color = Color.black;
+                m_Mr.material.color = Color.black;
         }
 	}
 }
