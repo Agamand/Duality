@@ -18,18 +18,18 @@ public class LaserBeamScript : MonoBehaviour {
 
     private GameObject []m_LaserBeams;
     private GameObject m_CurrentWorld;
-    private WorldControlerScript m_worldController;
+    private WorldControllerScript m_worldController;
 
 	// Use this for initialization
 	void Start () {
         m_LaserBeams = GameObject.FindGameObjectsWithTag("laserBeam");
-        m_worldController = GameObject.Find("GameWorld").GetComponent<WorldControlerScript>();
-        m_CurrentWorld = m_worldController.getCurrentWorld();
+        m_worldController = GameObject.Find("GameWorld").GetComponent<WorldControllerScript>();
+        m_CurrentWorld = m_worldController.GetCurrentWorld();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-            m_CurrentWorld = m_worldController.getCurrentWorld();
+            m_CurrentWorld = m_worldController.GetCurrentWorld();
             for (int i = 0; i < m_LaserBeams.Length; i++)
             {
                 if (m_CurrentWorld.layer == m_LaserBeams[i].layer)

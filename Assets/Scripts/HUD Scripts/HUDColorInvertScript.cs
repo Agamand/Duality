@@ -17,13 +17,13 @@ using System.Collections;
 
 public class HUDColorInvertScript : MonoBehaviour {
 
-    private WorldControlerScript m_Wc;
+    private WorldControllerScript m_Wc;
     private MeshRenderer m_Mr;
     public bool m_Inverted = false;
 
 	// Use this for initialization
 	void Start () {
-        m_Wc = GameObject.Find("GameWorld").GetComponent<WorldControlerScript>();
+        m_Wc = GameObject.Find("GameWorld").GetComponent<WorldControllerScript>();
         m_Mr = gameObject.GetComponent<MeshRenderer>();
 	}
 	
@@ -32,14 +32,14 @@ public class HUDColorInvertScript : MonoBehaviour {
 
         if (!m_Inverted)
         {
-            if (m_Wc.getCurrentWorldNumber() == 0)
+            if (m_Wc.GetCurrentWorldNumber() == 0)
                 m_Mr.material.color = Color.white;
             else
                 m_Mr.material.color = Color.black;
         }
         else
         {
-            if (m_Wc.getCurrentWorldNumber() == 1)
+            if (m_Wc.GetCurrentWorldNumber() == 1)
                 m_Mr.material.color = Color.white;
             else
                 m_Mr.material.color = Color.black;

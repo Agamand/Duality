@@ -25,7 +25,7 @@ public class LocalGravityScript : MonoBehaviour {
     private Vector3 m_Gravity;
     private ConstantForce m_ConstForce = null;
     private GameObject m_GameObject = null;
-    private ControlerScript m_Player = null;
+    private ControllerScript m_Player = null;
     private Rigidbody m_Body = null;
 
     void Start()
@@ -44,7 +44,7 @@ public class LocalGravityScript : MonoBehaviour {
 
         m_ConstForce = m_GameObject.AddComponent<ConstantForce>();
         setGravityDir(m_StartDir);
-        m_Player = GetComponent<ControlerScript>();
+        m_Player = GetComponent<ControllerScript>();
     }
 
     /**

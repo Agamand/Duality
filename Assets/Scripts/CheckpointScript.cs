@@ -15,12 +15,12 @@ using System.Collections;
 
 public class CheckpointScript : MonoBehaviour {
 
-    private ControlerScript m_Cs = null;
+    private ControllerScript m_Cs = null;
     public Quaternion playerRotation;
 
 	// Use this for initialization
 	void Start () {
-        m_Cs = GameObject.Find("Player").GetComponent<ControlerScript>();
+        m_Cs = GameObject.Find("Player").GetComponent<ControllerScript>();
 	}
 	
 	// Update is called once per frame

@@ -13,11 +13,11 @@ using System.Collections;
 
 public class DeathPitScript : MonoBehaviour {
 
-    private ControlerScript m_Controler;
+    private ControllerScript m_Controler;
 
 	// Use this for initialization
 	void Start () {
-        m_Controler = GameObject.Find("Player").GetComponent<ControlerScript>();
+        m_Controler = GameObject.Find("Player").GetComponent<ControllerScript>();
 	}
 	
 	// Update is called once per frame

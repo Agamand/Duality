@@ -15,18 +15,18 @@ using System.Collections;
 public class WorldIndicatorScript : MonoBehaviour {
 
 
-    private WorldControlerScript m_Wc;
+    private WorldControllerScript m_Wc;
     private TextMesh m_Tm;
 
 	// Use this for initialization
 	void Start () {
-        m_Wc = GameObject.Find("GameWorld").GetComponent<WorldControlerScript>();
+        m_Wc = GameObject.Find("GameWorld").GetComponent<WorldControllerScript>();
         m_Tm = gameObject.GetComponent<TextMesh>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (m_Wc.getCurrentWorldNumber() == 0)
+        if (m_Wc.GetCurrentWorldNumber() == 0)
             m_Tm.text = "World 1";
         else
             m_Tm.text = "World 2";

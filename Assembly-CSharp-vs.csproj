@@ -18,7 +18,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_WEBPLAYER;WEBPLUG;ENABLE_MICROPHONE;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;ENABLE_AUDIO_FMOD;ENABLE_NETWORK;ENABLE_MONO;ENABLE_PHYSICS;ENABLE_TERRAIN;ENABLE_CACHING;ENABLE_SUBSTANCE;ENABLE_GENERICS;ENABLE_CLOTH;ENABLE_MOVIES;ENABLE_AUDIO;ENABLE_WWW;ENABLE_SHADOWS;ENABLE_DUCK_TYPING;UNITY_4_0_1;UNITY_4_0;DEVELOPMENT_BUILD;ENABLE_PROFILER;UNITY_EDITOR</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_STANDALONE;ENABLE_MICROPHONE;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;ENABLE_AUDIO_FMOD;ENABLE_NETWORK;ENABLE_MONO;ENABLE_PHYSICS;ENABLE_TERRAIN;ENABLE_CACHING;ENABLE_SUBSTANCE;ENABLE_GENERICS;ENABLE_CLOTH;ENABLE_MOVIES;ENABLE_AUDIO;ENABLE_WWW;ENABLE_SHADOWS;ENABLE_DUCK_TYPING;UNITY_4_0_0;UNITY_4_0;UNITY_STANDALONE_WIN;UNITY_64;DEVELOPMENT_BUILD;ENABLE_PROFILER;UNITY_EDITOR</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -47,7 +47,7 @@
      <Compile Include="Assets\Notes\ToDo.cs" />
      <Compile Include="Assets\Scripts\AttachableObjectScript.cs" />
      <Compile Include="Assets\Scripts\CheckpointScript.cs" />
-     <Compile Include="Assets\Scripts\ControlerScript.cs" />
+     <Compile Include="Assets\Scripts\ControllerScript.cs" />
      <Compile Include="Assets\Scripts\DeathPitScript.cs" />
      <Compile Include="Assets\Scripts\HUD Scripts\HUDColorInvertScript.cs" />
      <Compile Include="Assets\Scripts\HUD Scripts\HUDFramerateScript.cs" />
@@ -58,10 +58,10 @@
      <Compile Include="Assets\Scripts\LaserBeamScript.cs" />
      <Compile Include="Assets\Scripts\LocalGravityScript.cs" />
      <Compile Include="Assets\Scripts\Moving Platforms\AttachToMovingScript.cs" />
-     <Compile Include="Assets\Scripts\Moving Platforms\AutomatedMovingPlatform.cs" />
+     <Compile Include="Assets\Scripts\Moving Platforms\AutomatedMovingPlatformScript.cs" />
      <Compile Include="Assets\Scripts\Moving Platforms\MovingPlatformScript.cs" />
      <Compile Include="Assets\Scripts\ReverseGravStandScript.cs" />
-     <Compile Include="Assets\Scripts\WorldControlerScript.cs" />
+     <Compile Include="Assets\Scripts\WorldControllerScript.cs" />
      <None Include="Assets\Materials\Shaders\Toony_Gooch_RimOutline.shader" />
      <None Include="Assets\Materials\Shaders\DebugMesh.shader" />
      <None Include="Assets\Materials\Shaders\Toony_Gooch_RimAlpha.shader" />

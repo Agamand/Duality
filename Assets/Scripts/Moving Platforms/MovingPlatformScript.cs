@@ -10,6 +10,7 @@
 *  - public axisEnum m_Axis: the axis on which you want the platform to move
 *  - public float m_Speed: the speed of the platform movement
 *  - public bool m_StartBackwards: defines whether or not the movement starts backwards or forwards
+*  - public bool m_ChangeColor: defines wheter or not the script is responsible for the color change of the bumpers
 *  - private Vector3 m_InitialPosition: the position of the platform before the automated movement
 *  - private WorldControlerScript m_WorldControler: the WorldControlerScript attached to the scene "GameWorld" defining in which world the player is
 *  - private int m_CurrentWorldNumber: the index of the World the player is in, 0 if World 1, 1 if World 2
@@ -31,18 +32,20 @@ public class MovingPlatformScript : MonoBehaviour {
     public axisEnum m_Axis;
     public float m_Speed;
     public bool m_StartBackwards = false;
+    public bool m_ChangeColor = false;
     private Vector3 m_InitialPosition;
-    private WorldControlerScript m_WorldControler;
+    private WorldControllerScript m_WorldControler;
     private int m_CurrentWorldNumber;
     private Vector3 m_RelPosition;
     private Vector3[] m_Translations;
     private Renderer[] m_BumpersRenderer;
 
+
 	// Use this for initialization
 	void Start () {
         m_InitialPosition = gameObject.transform.position;
-        m_WorldControler = GameObject.Find("GameWorld").GetComponent<WorldControlerScript>();
-        m_CurrentWorldNumber = m_WorldControler.getCurrentWorldNumber();
+        m_WorldControler = GameObject.Find("GameWorld").GetComponent<WorldControllerScript>();
+        m_CurrentWorldNumber = m_WorldControler.GetCurrentWorldNumber();
         m_RelPosition.Set(0, 0, 0);
         m_Translations = new Vector3[3];
         m_Translations[0].Set(m_Speed, 0, 0);
@@ -55,22 +58,31 @@ public class MovingPlatformScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        m_CurrentWorldNumber = m_WorldControler.getCurrentWorldNumber();
+        m_CurrentWorldNumber = m_WorldControler.GetCurrentWorldNumber();
 
         if (m_CurrentWorldNumber == (m_StartBackwards == true ? 0 : 1))
         {
-            foreach (Renderer r in m_BumpersRenderer){
-                r.material.color = Color.red;
+            if (m_ChangeColor)
+            {
+                foreach (Renderer r in m_BumpersRenderer)
+                {
+                    r.material.color = Color.red;
+                }
             }
-            if (m_RelPosition[(int)m_Axis] < m_MinIncrement) {
+            if (m_RelPosition[(int)m_Axis] < m_MinIncrement) 
+            {
                 gameObject.transform.Translate(m_Translations[(int)m_Axis] * Time.deltaTime);                
                 m_RelPosition = gameObject.transform.position + m_InitialPosition;
             }
         }
-        else {
-            foreach (Renderer r in m_BumpersRenderer)
+        else 
+        {
+            if (m_ChangeColor)
             {
-                r.material.color = Color.blue;
+                foreach (Renderer r in m_BumpersRenderer)
+                {
+                    r.material.color = Color.blue;
+                }
             }
             if (m_RelPosition[(int)m_Axis] > m_MaxIncrement * -1)
             {

@@ -14,11 +14,11 @@ using System.Collections;
 public class LaserBeamColliderScript : MonoBehaviour {
 
 
-    private ControlerScript m_PlayerControler;
+    private ControllerScript m_PlayerControler;
 
         // Use this for initialization
 	void Start () {
-        m_PlayerControler = GameObject.Find("Player").GetComponent<ControlerScript>();
+        m_PlayerControler = GameObject.Find("Player").GetComponent<ControllerScript>();
 	}
 	
 	// Update is called once per frame
