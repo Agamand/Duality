@@ -148,6 +148,6 @@ public class JumperScript : MonoBehaviour {
 			m_JumpTimer -= dTime;
 		else m_JumpTimer = -1.0f;
 		
-		Debug.Log("jumpTimer : " + m_JumpTimer + ", _isOnGround : "+ m_IsOnGround + ", canJump() : " + CanJump()+ ", charge : " + m_JumpCharge);
+		//Debug.Log("jumpTimer : " + m_JumpTimer + ", _isOnGround : "+ m_IsOnGround + ", canJump() : " + CanJump()+ ", charge : " + m_JumpCharge);
 	}
 }

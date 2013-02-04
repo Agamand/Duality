@@ -15,25 +15,27 @@
 using UnityEngine;
 using System.Collections;
 
-public class WorldControllerScript : MonoBehaviour {
-	
+public class WorldControllerScript : MonoBehaviour
+{
 
-	private int m_CurrentWorld = 0;
-	private GameObject m_World1;
-	private GameObject m_World2;
 
-	void Start () 
-	{
-		m_World1 = GameObject.Find("World1");
-		m_World2 = GameObject.Find("World2");
+    private int m_CurrentWorld = 0;
+    private GameObject m_World1;
+    private GameObject m_World2;
+
+    void Start()
+    {
+        m_World1 = GameObject.Find("World1");
+        m_World2 = GameObject.Find("World2");
         Physics.IgnoreLayerCollision(8, 9);
-		SetWorld(0);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+        SetWorld(0);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     /**
      * SwitchWorld()

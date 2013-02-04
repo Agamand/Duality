@@ -50,8 +50,9 @@ public class ControllerScript : MonoBehaviour {
     private Vector3 m_InitialVelocity;
 
 	
-	JumperScript m_JumpHandler = null;
+    JumperScript m_JumpHandler = null;
 	WorldControllerScript m_WorldHandler = null;
+    AttachToPlayerScript m_AttachToPlayer = null;
 
     /*Animation for changeGravity*/
 
@@ -60,7 +61,7 @@ public class ControllerScript : MonoBehaviour {
     private float m_AnimationTimer = 0.0f;
     private const float m_AnimationTime = 1.0f;
     private bool m_IsInAnimation = false;
-
+    private GameObject m_FlashLight = null;
 	
 	
 	void Start () {
@@ -74,7 +75,10 @@ public class ControllerScript : MonoBehaviour {
         m_RespawnPosition = transform.position;
         m_RespawnRotation = transform.rotation;
         m_InitialVelocity.Set(0, 0, 0);
-	}
+        m_AttachToPlayer = GameObject.Find("Grabber").GetComponent<AttachToPlayerScript>();
+        m_FlashLight = GameObject.Find("Light");
+        ToggleFlashLight();
+    }
 	
     /**
      * ???????
@@ -149,8 +153,18 @@ public class ControllerScript : MonoBehaviour {
 
         m_IsInAnimation = true;
     }
-	
+
+    /**
+     *  ToggleFlashLight
+     *      --> Allows the player to switch the flashlight on and off
+     * */
+    private void ToggleFlashLight()
+    {
+        m_FlashLight.SetActive(!m_FlashLight.activeInHierarchy);
+    }
+
 	void Update () {
+
 
         Vector3 pos_diff = m_Lastpos - Input.mousePosition;
 		m_Lastpos = Input.mousePosition;
@@ -180,10 +194,24 @@ public class ControllerScript : MonoBehaviour {
         {
             RespawnPlayer();
         }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (m_AttachToPlayer.IsGrabbing())
+                m_AttachToPlayer.Release();
+            else
+                m_AttachToPlayer.Grab();
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            ToggleFlashLight();
+        }
+
 		
 		if(Input.GetKeyDown(KeyCode.A))
 		{
-			Debug.Log("a");
+			Debug.Log("touche a");
 			m_WorldHandler.SwitchWorld();
             m_JumpHandler.SetMaxCharge(m_WorldHandler.GetCurrentWorldNumber()); 
 		}
@@ -203,9 +231,9 @@ public class ControllerScript : MonoBehaviour {
 		vforce = transform.rotation*vforce;
 		rigidbody.AddForce(vforce);
         UpdateAnimation();
-		//Debug.Log("velocity : " + rigidbody.velocity.magnitude + ", (" + rigidbody.velocity.ToString() + ")");	
+		//Debug.Log("velocity : " + rigidbody.velocity.magnitude + ", (" + rigidbody.velocity.ToString() + ")");
 	}
-
+ 
 
     /**
      *  RespawnPlayer(): 

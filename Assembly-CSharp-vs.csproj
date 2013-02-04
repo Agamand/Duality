@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Notes\ToDo.cs" />
+     <Compile Include="Assets\Scripts\AttachToPlayerScript.cs" />
      <Compile Include="Assets\Scripts\AttachableObjectScript.cs" />
      <Compile Include="Assets\Scripts\CheckpointScript.cs" />
      <Compile Include="Assets\Scripts\ControllerScript.cs" />

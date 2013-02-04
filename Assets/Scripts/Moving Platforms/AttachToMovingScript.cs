@@ -14,8 +14,8 @@ public class AttachToMovingScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	        
-	}
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -31,15 +31,13 @@ public class AttachToMovingScript : MonoBehaviour {
      * */
     void OnTriggerEnter(Collider col)
     {
+        Debug.Log("COLLISION SUR PLATEFORME");
+        Debug.Log("col.gameObject.transform.parent: " + col.gameObject.transform.parent.name);
+        if (col.gameObject.transform.parent.name.Equals("Player"))
+             col.gameObject.transform.parent.transform.parent = gameObject.transform;
+        else if (col.gameObject.transform.GetComponent<AttachableObjectScript>() != null)
+                col.gameObject.transform.parent = gameObject.transform;
 
-        if (col.gameObject.transform.parent.GetComponent<AttachableObjectScript>() != null)
-        {
-            Debug.Log("is attachable");
-           if (col.gameObject.transform.parent.name.Equals("Player"))
-                col.gameObject.transform.parent.transform.parent = gameObject.transform;
-           else
-               col.gameObject.transform.parent = gameObject.transform;
-        }
     }
 
     /**
@@ -51,13 +49,10 @@ public class AttachToMovingScript : MonoBehaviour {
      * */
     void OnTriggerExit(Collider col)
     {
-        if (col.gameObject.transform.parent.GetComponent<AttachableObjectScript>() != null)
-        {
-           if (col.gameObject.transform.parent.name.Equals("Player"))
-               col.gameObject.transform.parent.transform.parent = col.gameObject.transform.parent.GetComponent<AttachableObjectScript>().GetOriginalTransform();
-           else
-               col.gameObject.transform.parent = col.gameObject.transform.parent.GetComponent<AttachableObjectScript>().GetOriginalTransform();
-        }
+        if (col.gameObject.transform.parent.name.Equals("Player"))
+             col.gameObject.transform.parent.transform.parent = col.gameObject.transform.parent.GetComponent<AttachableObjectScript>().GetOriginalTransform();
+        else if (col.gameObject.transform.GetComponent<AttachableObjectScript>() != null)
+             col.gameObject.transform.parent = col.gameObject.transform.GetComponent<AttachableObjectScript>().GetOriginalTransform();
     }
 
 }
