@@ -51,7 +51,12 @@ public class AttachToPlayerScript : MonoBehaviour
     {
         if (col.gameObject.transform.GetComponent<AttachableObjectScript>() != null && col.gameObject.transform.GetComponent<LocalGravityScript>() != null
             && col.gameObject.transform.GetComponent<AttachableObjectScript>().m_IsGrabbable)
-        { m_Grabbed = col; Debug.Log("Colliding"); }
+        {
+            if (!m_IsGrabbing)
+            {
+                m_Grabbed = col; Debug.Log("Colliding");
+            }
+        }
     }
 
     /**
@@ -65,7 +70,12 @@ public class AttachToPlayerScript : MonoBehaviour
     {
         if (col.gameObject.transform.GetComponent<AttachableObjectScript>() != null && col.gameObject.transform.GetComponent<LocalGravityScript>() != null
             && col.gameObject.transform.GetComponent<AttachableObjectScript>().m_IsGrabbable)
-        { m_Grabbed = null; Debug.Log("No More colliding"); }
+        {
+            if (col == m_Grabbed)
+            {
+                m_Grabbed = null; Debug.Log("No More colliding");
+            }
+        }
     }
 
     /**

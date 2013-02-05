@@ -69,7 +69,7 @@ public class AttachableObjectScript : MonoBehaviour {
         if (m_Grabber != null)
         {
 
-            if (!col.gameObject.CompareTag("Dynamic") && !col.gameObject.CompareTag("Ball") && !col.gameObject.CompareTag("Player"))
+            if (!col.gameObject.CompareTag("Dynamic") && !col.gameObject.CompareTag("Ball") /*&& !col.gameObject.CompareTag("Player")*/)
             {
                 m_Grabber.GetComponent<AttachToPlayerScript>().Release();
             }

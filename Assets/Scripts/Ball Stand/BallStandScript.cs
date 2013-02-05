@@ -1,3 +1,14 @@
+/**
+ * BallStandScript
+ *  --> Switch that can be turned On and Off when a ball trigger it
+ *
+ * Members: 
+ *  - private bool m_IsOn: whether or not the switch is on
+ *  - private Light[] m_Lights: the lights of the switch
+ *
+ *  Authors: Jean-Vincent Lamberti
+ * */
+
 using UnityEngine;
 using System.Collections;
 
@@ -19,6 +30,10 @@ public class BallStandScript : MonoBehaviour {
 	
 	}
 
+    /**
+     * FlickOn()
+     *  Called by a script which want to turn the switch on, passes the lights to green and the state of the switch to on
+     * */
     public void FlickOn()
     {
         Debug.Log("Allumez bitches!!!!");
@@ -27,6 +42,10 @@ public class BallStandScript : MonoBehaviour {
                 l.color = Color.green;
     }
 
+    /**
+     * FlickOff()
+     *  Called by a script which want to turn the switch off, passes the lights to red and the state of the switch to off
+     * */
     public void  FlickOff()
     {
         Debug.Log("On éteint tout les débiles");
@@ -35,6 +54,10 @@ public class BallStandScript : MonoBehaviour {
             l.color = Color.red;
     }
 
+    /**
+     *  GetState()
+     *      Returns whether or not the switch is on
+     * */
     public bool GetState()
     {
         return m_IsOn;
