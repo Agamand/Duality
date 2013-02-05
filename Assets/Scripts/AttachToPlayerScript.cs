@@ -18,14 +18,14 @@ using System.Collections;
 public class AttachToPlayerScript : MonoBehaviour
 {
     private bool m_IsGrabbing = false;
-    private ArrayList m_Colliders;
+    //private ArrayList m_Colliders;
     private Collider m_Grabbed;
     private WorldControllerScript m_WorldController;
 
     // Use this for initialization
     void Start()
     {
-        m_Colliders = new ArrayList();
+        //m_Colliders = new ArrayList();
         m_WorldController = GameObject.Find("GameWorld").GetComponent<WorldControllerScript>();
     }
 
@@ -49,9 +49,9 @@ public class AttachToPlayerScript : MonoBehaviour
      * */
     void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.transform.GetComponent<AttachableObjectScript>() != null && col.gameObject.transform.GetComponent<LocalGravityScript>() != null 
+        if (col.gameObject.transform.GetComponent<AttachableObjectScript>() != null && col.gameObject.transform.GetComponent<LocalGravityScript>() != null
             && col.gameObject.transform.GetComponent<AttachableObjectScript>().m_IsGrabbable)
-            m_Colliders.Add(col);
+        { m_Grabbed = col; Debug.Log("Colliding"); }
     }
 
     /**
@@ -65,7 +65,7 @@ public class AttachToPlayerScript : MonoBehaviour
     {
         if (col.gameObject.transform.GetComponent<AttachableObjectScript>() != null && col.gameObject.transform.GetComponent<LocalGravityScript>() != null
             && col.gameObject.transform.GetComponent<AttachableObjectScript>().m_IsGrabbable)
-            m_Colliders.Remove(col);
+        { m_Grabbed = null; Debug.Log("No More colliding"); }
     }
 
     /**
@@ -74,12 +74,10 @@ public class AttachToPlayerScript : MonoBehaviour
      * */
     public void Grab()
     {
-        if (m_Colliders.Count > 0)
+        if (m_Grabbed)
         {
-            m_Grabbed = (Collider)m_Colliders[m_Colliders.Count - 1];
-            //m_Grabbed.gameObject.transform.rigidbody.isKinematic = true;
             m_Grabbed.transform.GetComponent<LocalGravityScript>().setGravityDir(new Vector3(0, 0, 0));
-            m_Grabbed.gameObject.transform.parent = gameObject.transform.parent;
+            m_Grabbed.gameObject.transform.parent = gameObject.transform;
 
             Color c = m_Grabbed.gameObject.renderer.material.color;
             c.a = 0.3f;
@@ -99,7 +97,6 @@ public class AttachToPlayerScript : MonoBehaviour
     {
         if (m_IsGrabbing == true)
         {
-            //m_Grabbed.gameObject.transform.rigidbody.isKinematic = false;
             m_Grabbed.gameObject.transform.parent = m_Grabbed.gameObject.transform.GetComponent<AttachableObjectScript>().GetOriginalTransform();
             m_IsGrabbing = false;
 

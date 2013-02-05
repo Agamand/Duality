@@ -29,7 +29,7 @@ public class AttachToMovingScript : MonoBehaviour {
      * Arguments: 
      *  - Collider col: the collider which enter in collision with the platform collider
      * */
-    void OnTriggerEnter(Collider col)
+    void OnCollisionEnter(Collision col)
     {
         Debug.Log("COLLISION SUR PLATEFORME");
         Debug.Log("col.gameObject.transform.parent: " + col.gameObject.transform.parent.name);
@@ -47,7 +47,7 @@ public class AttachToMovingScript : MonoBehaviour {
      * Arguments: 
      *  - Collider col: the collider which no longer touches the platform
      * */
-    void OnTriggerExit(Collider col)
+    void OnCollisionExit(Collision col)
     {
         if (col.gameObject.transform.parent.name.Equals("Player"))
              col.gameObject.transform.parent.transform.parent = col.gameObject.transform.parent.GetComponent<AttachableObjectScript>().GetOriginalTransform();

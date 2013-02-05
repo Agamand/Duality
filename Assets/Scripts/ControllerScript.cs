@@ -13,7 +13,6 @@
  *	    public float m_MouseSpeed : the sensibility of the mouse
  *      public float m_MaxSpeed : the max speed of the player
  *      public float m_Baseforce : the base force factor to each speed and force
- *	    private Vector3 m_Lastpos : the last position of the mouse
  *      private float m_Incl : mouse gradient
  *      private float m_Rot_Y : mouse rotation
  *      private Vector3 m_RespawnPosition : the respawn position of the player
@@ -42,7 +41,6 @@ public class ControllerScript : MonoBehaviour {
 	public float m_MouseSpeed = 100.0f;
     public float m_MaxSpeed = 30.0f;
     public float m_Baseforce = 40000;
-	private Vector3 m_Lastpos;
     private float m_Incl;
     private float m_Rot_Y;
     private Vector3 m_RespawnPosition;
@@ -67,7 +65,6 @@ public class ControllerScript : MonoBehaviour {
 	void Start () {
         m_Incl = 0.0f;
         m_Rot_Y = 0.0f;
-        m_Lastpos = Input.mousePosition;
 		m_JumpHandler = GetComponentInChildren<JumperScript>();
 		GameObject world = GameObject.Find("GameWorld");
 		m_WorldHandler = world.GetComponent<WorldControllerScript>();
@@ -78,6 +75,7 @@ public class ControllerScript : MonoBehaviour {
         m_AttachToPlayer = GameObject.Find("Grabber").GetComponent<AttachToPlayerScript>();
         m_FlashLight = GameObject.Find("Light");
         ToggleFlashLight();
+        Screen.lockCursor = true;
     }
 	
     /**
@@ -100,27 +98,27 @@ public class ControllerScript : MonoBehaviour {
     /**
      * ????????
      * */
-	private void UpdateMouse(Vector3 mdiff)
-	{
-		float inclInc = mdiff.y*m_MouseSpeed*Time.deltaTime;
-		m_Rot_Y = -mdiff.x*m_MouseSpeed*Time.deltaTime;
-		m_Rot_Y = Modulof(m_Rot_Y,360.0f);
+    private void UpdateMouse()
+    {
+        float inclInc = Input.GetAxis("Vertical") * m_MouseSpeed * Time.deltaTime;
+        m_Rot_Y = Input.GetAxis("Horizontal") * m_MouseSpeed * Time.deltaTime;
+        m_Rot_Y = Modulof(m_Rot_Y, 360.0f);
 
         if (m_Incl + inclInc > 89.0f)
-		{
+        {
             inclInc = 89.0f - m_Incl;
-		}
+        }
         else if (m_Incl + inclInc < -89.0f)
-		{
+        {
             inclInc = -89.0f - m_Incl;
-		}
+        }
 
         m_Incl += inclInc;
-		
-		transform.FindChild("Camera").Rotate(Vector3.right,inclInc);
-        transform.FindChild("Light").Rotate(Vector3.right, inclInc);		
-	}
-	
+
+        transform.FindChild("Camera").Rotate(Vector3.right, inclInc);
+        transform.FindChild("Light").Rotate(Vector3.right, inclInc);
+    }
+
     /**
      * IsOnGround
      *  --> returns whether or not the player is touching the ground
@@ -165,11 +163,7 @@ public class ControllerScript : MonoBehaviour {
 
 	void Update () {
 
-
-        Vector3 pos_diff = m_Lastpos - Input.mousePosition;
-		m_Lastpos = Input.mousePosition;
-	
-		UpdateMouse(pos_diff);
+		UpdateMouse();
 		transform.Rotate(Vector3.up,m_Rot_Y);
 		Vector3 vforce = new Vector3(0.0f,0.0f,0.0f);
 		float dTime = Time.deltaTime;
